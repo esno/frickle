@@ -8,7 +8,17 @@ pkg.scm = {
   }}
 }
 
+S = string.format("%s/binutils-gdb", W)
+
 pkg.prepare = {
-  string.format("./configure --prefix=%s/image --with-sysroot=%s/sysroot --target=%s --disable-nls --enable-gprofng=no --disable-werror --enable-new-dtags --enable-default-hash-style=gnu",
-    W, W, target)
+  string.format("./configure --prefix=%s/usr --with-sysroot=%s/sysroot --target=%s --disable-nls --enable-gprofng=no --disable-werror --enable-new-dtags --enable-default-hash-style=gnu",
+    D, W, cc.target)
+}
+
+pkg.build = {
+  "make -j16"
+}
+
+pkg.install = {
+  "make install"
 }
